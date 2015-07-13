@@ -1,0 +1,5 @@
+---
+# defaults file for letsencrypt
+
+letsencrypt_git: /var/git/letsencrypt
+letsencrypt_venv: /usr/local/bin/letsencrypt

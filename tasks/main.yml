@@ -1,0 +1,45 @@
+---
+# tasks file for letsencrypt
+
+- name: Install common packages
+  apt:
+    name={{ item }}
+    update_cache=yes
+    cache_valid_time=86400
+    install-recommends=no
+    state=present
+  with_items:
+   - ca-certificates
+   - dialog
+   - gcc
+   - git-core
+   - libaugeas0
+   - libffi-dev
+   - libssl-dev
+   - python
+   - python-dev
+   - virtualenv
+
+- name: clone git repository
+  git:
+    repo=https://github.com/letsencrypt/letsencrypt
+    dest={{ letsencrypt_git }}
+    depth=1
+    accept_hostkey=yes
+  
+- name: install python packages
+  pip:
+    requirements={{ letsencrypt_git }}/requirements.txt
+    virtualenv={{ letsencrypt_venv }}
+    virtualenv_site_packages=no
+ 
+- name: install python packages
+  pip:
+    name={{ letsencrypt_git }}/{{ item }}
+    virtualenv={{ letsencrypt_venv }}
+    virtualenv_site_packages=no
+  with_items:
+    - acme
+    - .
+    - letsencrypt-apache
+    - letsencrypt-nginx
