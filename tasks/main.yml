@@ -45,5 +45,12 @@
     - letsencrypt-nginx
 
 - name: Installation quirk workaround
-  command: cp {{ letsencrypt_git }}/letsencrypt-apache/letsencrypt_apache/options-ssl-apache.conf {{ letsencrypt_venv }}/local/lib/python2.7/site-packages/letsencrypt_apache/options-ssl-apache.conf
+  command:
+    cp {{ letsencrypt_git }}/{{ item.src }} {{ letsencrypt_venv }}/local/lib/python2.7/site-packages/{{ item.dest }}
+    creates="{{ letsencrypt_venv }}/local/lib/python2.7/site-packages/{{ item.dest }}"
+  with_items:
+    - src: letsencrypt-apache/letsencrypt_apache/options-ssl-apache.conf
+      dest: letsencrypt_apache/options-ssl-apache.conf
+    - src: letsencrypt-nginx/letsencrypt_nginx/options-ssl-nginx.conf
+      dest: letsencrypt_nginx/options-ssl-nginx.conf
     
