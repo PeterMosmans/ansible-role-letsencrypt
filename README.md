@@ -24,7 +24,7 @@ letsencrypt_git: /var/git/letsencrypt
 
 **letsencrypt_venv**: The location where the let's encrypt binaries will be stored (virtual Python environment). The default location can be found in ```defaults/main.yml```.
 ```
-letsencrypt_venv: /usr/local/bin/letsencrypt
+letsencrypt_venv: /usr/local/bin/letsencrypt 
 ```
 
 Dependencies
