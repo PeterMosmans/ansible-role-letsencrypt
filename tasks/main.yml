@@ -1,5 +1,7 @@
 ---
 # tasks file for letsencrypt
+- name: Use correct Python virtual environment package name
+  set_fact: virtual_env="{{ 'virtualenv' if (((ansible_distribution == 'Debian') and (ansible_distribution_version >= '8')) or ((ansible_distribution == 'Ubuntu') and (ansible_distribution_version|int >= '14.04'))) else 'python-virtualenv' }}"
 
 - name: Install common packages
   apt:
@@ -15,10 +17,10 @@
    - git-core
    - libaugeas0
    - libffi-dev
-   - libssl-dev
    - python
    - python-dev
-   - virtualenv
+   - "{{ virtual_env }}"
+#   - libssl-dev
 
 - name: clone git repository
   git:
@@ -32,17 +34,19 @@
     requirements={{ letsencrypt_git }}/requirements.txt
     virtualenv={{ letsencrypt_venv }}
     virtualenv_site_packages=no
+    chdir={{ letsencrypt_venv }}
 
 - name: Install python packages
   pip:
     name={{ letsencrypt_git }}/{{ item }}
     virtualenv={{ letsencrypt_venv }}
-    virtualenv_site_packages=no
+    virtualenv_site_packages=yes
+    state=present
   with_items:
     - acme
     - .
-    - letsencrypt-apache
-    - letsencrypt-nginx
+    - letsencrypt-apache/
+    - letsencrypt-nginx/
 
 - name: Installation quirk workaround
   command:

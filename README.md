@@ -7,7 +7,7 @@ This role installs the latest git version of the Let's Encrypt Client: Getting a
 Requirements
 ------------
 
-None
+libssl-dev (or manually installed openssl development headers, libcrypto and libssl libraries)
 
 
 Role Variables
