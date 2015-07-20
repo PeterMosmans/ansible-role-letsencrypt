@@ -59,20 +59,20 @@ galaxy_info:
   #  - 9.1
   #  - 9.1
   #  - 9.2
-  #- name: Ubuntu
-  #  versions:
+  - name: Ubuntu
+    versions:
   #  - all
   #  - lucid
   #  - maverick
   #  - natty
   #  - oneiric
-  #  - precise
-  #  - quantal
-  #  - raring
-  #  - saucy
-  #  - trusty
-  #  - utopic
-  #  - vivid
+     - precise
+     - quantal
+     - raring
+     - saucy
+     - trusty
+     - utopic
+     - vivid
   #- name: SLES
   #  versions:
   #  - all
@@ -90,10 +90,10 @@ galaxy_info:
     versions:
   #  - all
   #  - etch
-    - jessie
-  #  - lenny
-  #  - squeeze
-    - wheezy
+     - jessie
+     - lenny
+     - squeeze
+     - wheezy
   categories:
   #- cloud
   #- cloud:ec2
