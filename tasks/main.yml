@@ -22,39 +22,49 @@
    - "{{ virtual_env }}"
 #   - libssl-dev
 
-- name: clone git repository
+- name: Clone git repository
   git:
     repo=https://github.com/letsencrypt/letsencrypt
     dest={{ letsencrypt_git }}
     depth=1
     accept_hostkey=yes
 
-- name: Install python requirements
-  pip:
-    requirements={{ letsencrypt_git }}/requirements.txt
-    virtualenv={{ letsencrypt_venv }}
-    virtualenv_site_packages=no
-    chdir={{ letsencrypt_venv }}
+#- name: Install letsencrypt
+#  command: >-
+#    {{ letsencrypt_git }}/letsencrypt-auto
+#    --text
+#    --agree-dev-preview
+#    --agree-tos install
+#    --cert-path {{ letsencrypt_certs }}
+#    --key-path {{ letsencrypt_keys }}
+#    creates=/{{ letsencrypt_git }}/dunno
 
-- name: Install python packages
-  pip:
-    name={{ letsencrypt_git }}/{{ item }}
-    virtualenv={{ letsencrypt_venv }}
-    virtualenv_site_packages=yes
-    state=present
-  with_items:
-    - acme
-    - .
-    - letsencrypt-apache/
-    - letsencrypt-nginx/
+# - name: Install python requirements
+#   pip:
+#     requirements={{ letsencrypt_git }}/requirements.txt
+#     virtualenv={{ letsencrypt_venv }}
+#     virtualenv_site_packages=no
+#     chdir={{ letsencrypt_venv }}
 
-- name: Installation quirk workaround
-  command:
-    cp {{ letsencrypt_git }}/{{ item.src }} {{ letsencrypt_venv }}/local/lib/python2.7/site-packages/{{ item.dest }}
-    creates="{{ letsencrypt_venv }}/local/lib/python2.7/site-packages/{{ item.dest }}"
-  with_items:
-    - src: letsencrypt-apache/letsencrypt_apache/options-ssl-apache.conf
-      dest: letsencrypt_apache/options-ssl-apache.conf
-    - src: letsencrypt-nginx/letsencrypt_nginx/options-ssl-nginx.conf
-      dest: letsencrypt_nginx/options-ssl-nginx.conf
+# - name: Install python packages
+#   pip:
+#     name={{ letsencrypt_git }}/{{ item }}
+#     virtualenv={{ letsencrypt_venv }}
+#     virtualenv_site_packages=yes
+#     state=present
+#   with_items:
+#     - acme
+#     - .
+#     - letsencrypt-apache/
+#     - letsencrypt-nginx/
+
+# - name: Installation quirk workaround
+#   command:
+#     cp {{ letsencrypt_git }}/{{ item.src }} {{ letsencrypt_venv }}/local/lib/python2.7/site-packages/{{ item.dest }}
+#     creates="{{ letsencrypt_venv }}/local/lib/python2.7/site-packages/{{ item.dest }}"
+#   with_items:
+#     - src: letsencrypt-apache/letsencrypt_apache/options-ssl-apache.conf
+#       dest: letsencrypt_apache/options-ssl-apache.conf
+#     - src: letsencrypt-nginx/letsencrypt_nginx/options-ssl-nginx.conf
+#       dest: letsencrypt_nginx/options-ssl-nginx.conf
     

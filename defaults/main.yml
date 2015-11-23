@@ -3,4 +3,6 @@
 
 letsencrypt_git: /var/git/letsencrypt
 letsencrypt_venv: /usr/local/bin/letsencrypt
+letsencrypt_certs: /etc/ssl/certs
+letsencrypt_keys: /etc/ssl/keys
 
