@@ -1,6 +1,10 @@
 Ansible Role: letsencrypt
 =========
 
+Build status for this role: [![Build Status](https://travis-ci.org/PeterMosmans/ansible-role-letsencrypt.svg)](https://travis-ci.org/PeterMosmans/ansible-role-letsencrypt)
+
+
+
 This role installs the latest git version of the Let's Encrypt Client: Getting and installing SSL/TLS certificates made easy. See for more information https://letsencrypt.readthedocs.org/en/latest/index.html
 
 
